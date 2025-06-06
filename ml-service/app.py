@@ -1,25 +1,19 @@
 from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
+from api.routes import sentiment_bp
+from models.sentiment import SentimentModel
 
 load_dotenv()
 
 app = Flask(__name__)
+app.register_blueprint(sentiment_bp, url_prefix='/api')
 
-@app.route('/api/classify', methods=['POST'])
-def classify_sentiment():
-    data = request.json
-    if not data or 'text' not in data:
-        return jsonify({"error": "Text is required"}), 400
-    
-    text = data['text']
-    
-    sentiment = "positive" if "good" in text.lower() else "negative" if "bad" in text.lower() else "neutral"
-    
-    return jsonify({
-        "sentiment": sentiment,
-        "confidence": 0.85
-    })
+model = SentimentModel(force_retrain=False)
+
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({"status": "ML service is running"})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))
