@@ -5,7 +5,6 @@ A full-stack application for collecting, analyzing, and visualizing customer fee
 
 ## Project Structure
 
-- `/frontend-svelte` - Svelte frontend application
 - `/frontend-react` - React (CRA) frontend application
 - `/backend` - Node.js and Express REST API
 - `/ml-service` - Python Flask API for sentiment analysis
@@ -20,13 +19,7 @@ npm install
 npm run dev
 ```
 
-### Frontend (Svelte)
 
-```bash
-cd frontend-svelte
-npm install
-npm run dev
-```
 
 ### Frontend (React)
 
